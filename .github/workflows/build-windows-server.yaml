@@ -5,7 +5,7 @@ on:
       ntfy_repo:
         description: 'Your ntfy fork to build from (e.g., YourUsername/ntfy)'
         required: true
-        default: 'YourUsername/ntfy'
+        default: 'BasharMilesTeg/ntfy'
       branch:
         description: 'The branch to build'
         required: true
@@ -39,10 +39,10 @@ jobs:
       - name: Build Windows server binary
         run: |
           # Use the dedicated make target from the patch to build the Windows server.
-          make cli-windows-server
+          make cli-windows-amd64
 
       - name: Upload Windows binary as artifact
         uses: actions/upload-artifact@v4
         with:
           name: ntfy-windows-server
-          path: dist/ntfy_windows_server/ntfy.exe
+          path: dist/ntfy_windows_amd64/ntfy.exe
