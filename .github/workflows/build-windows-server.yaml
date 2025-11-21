@@ -48,4 +48,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ntfy-windows-server
-          path: dist/ntfy_windows_amd64/ntfy.exe
+          path: dist/*/ntfy.exe
