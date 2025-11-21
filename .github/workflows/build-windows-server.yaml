@@ -33,8 +33,10 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './web/package-lock.json'
 
-      - name: Install build dependencies
+      - name: Install build dependencies, including Windows cross-compiler
         run: |
+          sudo apt-get update # Ensure package lists are up to date
+          sudo apt-get install -y gcc-mingw-w64-x86-64 # Install the Windows cross-compiler
           make cli-deps-all cli-deps-gcc-windows
 
       - name: Build Windows server binary
