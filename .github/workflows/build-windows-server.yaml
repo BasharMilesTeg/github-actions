@@ -33,8 +33,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './web/package-lock.json'
 
-      - name: Install dependencies
-        run: make build-deps-ubuntu
+      - name: Install build dependencies
+        run: |
+          make cli-deps-all cli-deps-gcc-windows
 
       - name: Build Windows server binary
         run: |
