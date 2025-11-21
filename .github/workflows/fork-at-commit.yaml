@@ -1,0 +1,36 @@
+name: Sync Forked Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository_name:
+        description: 'The full name of your forked repo (e.g., YourUsername/your-fork)'
+        required: true
+      commit_sha:
+        description: 'The full commit SHA to create the branch from'
+        required: true
+      new_branch_name:
+        description: 'The name for the new branch'
+        required: true
+
+jobs:
+  create-branch-from-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout forked repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.inputs.repository_name }}
+          token: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
+          fetch-depth: 0 # Fetches all history to find the specific commit
+
+      - name: Configure Git User
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "github-actions-bot@users.noreply.github.com"
+
+      - name: Create and switch to new branch
+        run: git checkout -b ${{ github.event.inputs.new_branch_name }} ${{ github.event.inputs.commit_sha }}
+
+      - name: Push new branch to remote
+        run: git push origin ${{ github.event.inputs.new_branch_name }}
