@@ -25,6 +25,7 @@ jobs:
         with:
           repository: ${{ github.event.inputs.source_repo_name }}
           fetch-depth: 0 # Fetches all history to find the specific commit
+          persist-credentials: false # Do not store credentials from checkout
 
       - name: Configure Git User
         run: |
@@ -36,5 +37,5 @@ jobs:
 
       - name: Add destination remote and push
         run: |
-          git remote add destination https://x-access-token:${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}@github.com/${{ github.event.inputs.destination_repo_name }}.git
-          git push destination ${{ github.event.inputs.new_branch_name }}
+          git remote set-url origin https://x-access-token:${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}@github.com/${{ github.event.inputs.destination_repo_name }}.git
+          git push origin ${{ github.event.inputs.new_branch_name }}
