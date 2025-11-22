@@ -39,6 +39,10 @@ jobs:
           sudo apt-get install -y gcc-mingw-w64-x86-64 # Install the Windows cross-compiler
           make cli-deps-all cli-deps-gcc-windows
 
+      - name: Build the Web UI
+        run: |
+          make web
+
       - name: Build Windows server binary
         run: |
           # Use the dedicated make target from the patch to build the Windows server.
@@ -48,4 +52,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ntfy-windows-server
-          path: dist/*/ntfy.exe
+          path: dist/
